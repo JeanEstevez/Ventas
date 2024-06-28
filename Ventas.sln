@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ventas.Data", "Ventas.Data\Ventas.Data.csproj", "{3C725335-39D7-4122-9321-3CE04F956270}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ventas.Wed", "Ventas.Wed\Ventas.Wed.csproj", "{C83FDF64-09FD-4437-9866-73129569C22F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ventas.Web", "Ventas.Wed\Ventas.Web.csproj", "{C83FDF64-09FD-4437-9866-73129569C22F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ventas.Data.Test", "Ventas.Data.Test\Ventas.Data.Test.csproj", "{EE407160-F1A2-4E60-AE5A-1F85A8164529}"
 EndProject
