@@ -2,27 +2,26 @@
 using Microsoft.EntityFrameworkCore;
 using Ventas.Data.Context;
 using Ventas.Data.Entities;
-using Ventas.Data.Interfaces.Repositories;
+
 
 namespace Ventas.Web.Controllers
 {
-    public class ClientesController : Controller
+    public class ProveedoresController : Controller
     {
         private readonly AzurePracticeContext _context;
-        private readonly IClienteRepository _repo;
 
-        public ClientesController(AzurePracticeContext context, IClienteRepository repo)
+        public ProveedoresController(AzurePracticeContext context)
         {
             _context = context;
-            _repo = repo;
         }
 
-
+        // GET: Proveedores
         public async Task<IActionResult> Index()
         {
-            return View(await _repo.GetAll());
+            return View(await _context.Proveedores.ToListAsync());
         }
 
+        // GET: Proveedores/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -30,35 +29,39 @@ namespace Ventas.Web.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes
-                .FirstOrDefaultAsync(m => m.IdCliente == id);
-            if (cliente == null)
+            var proveedore = await _context.Proveedores
+                .FirstOrDefaultAsync(m => m.IdProveedor == id);
+            if (proveedore == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
+            return View(proveedore);
         }
 
+        // GET: Proveedores/Create
         public IActionResult Create()
         {
             return View();
         }
 
+        // POST: Proveedores/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCliente,Nombre,Direccion,Telefono,Email,FechaRegistro")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("IdProveedor,Nombre,Direccion,Telefono,Email,Contacto")] Proveedore proveedore)
         {
             if (ModelState.IsValid)
             {
-                await _repo.Add(cliente);
+                _context.Add(proveedore);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(proveedore);
         }
 
-
+        // GET: Proveedores/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -66,19 +69,22 @@ namespace Ventas.Web.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes.FindAsync(id);
-            if (cliente == null)
+            var proveedore = await _context.Proveedores.FindAsync(id);
+            if (proveedore == null)
             {
                 return NotFound();
             }
-            return View(cliente);
+            return View(proveedore);
         }
 
+        // POST: Proveedores/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCliente,Nombre,Direccion,Telefono,Email,FechaRegistro")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("IdProveedor,Nombre,Direccion,Telefono,Email,Contacto")] Proveedore proveedore)
         {
-            if (id != cliente.IdCliente)
+            if (id != proveedore.IdProveedor)
             {
                 return NotFound();
             }
@@ -87,12 +93,12 @@ namespace Ventas.Web.Controllers
             {
                 try
                 {
-                    _context.Update(cliente);
+                    _context.Update(proveedore);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClienteExists(cliente.IdCliente))
+                    if (!ProveedoreExists(proveedore.IdProveedor))
                     {
                         return NotFound();
                     }
@@ -103,10 +109,10 @@ namespace Ventas.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(proveedore);
         }
 
-        // GET: Clientes/Delete/5
+        // GET: Proveedores/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -114,34 +120,34 @@ namespace Ventas.Web.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes
-                .FirstOrDefaultAsync(m => m.IdCliente == id);
-            if (cliente == null)
+            var proveedore = await _context.Proveedores
+                .FirstOrDefaultAsync(m => m.IdProveedor == id);
+            if (proveedore == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
+            return View(proveedore);
         }
 
-        // POST: Clientes/Delete/5
+        // POST: Proveedores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
-            if (cliente != null)
+            var proveedore = await _context.Proveedores.FindAsync(id);
+            if (proveedore != null)
             {
-                _context.Clientes.Remove(cliente);
+                _context.Proveedores.Remove(proveedore);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClienteExists(int id)
+        private bool ProveedoreExists(int id)
         {
-            return _context.Clientes.Any(e => e.IdCliente == id);
+            return _context.Proveedores.Any(e => e.IdProveedor == id);
         }
     }
 }
