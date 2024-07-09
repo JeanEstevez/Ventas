@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Ventas.Web.Models;
+using Ventas.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 

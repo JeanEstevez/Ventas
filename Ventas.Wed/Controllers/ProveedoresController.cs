@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Ventas.Web.Models;
+using Ventas.Data.Context;
+using Ventas.Data.Entities;
+
 
 namespace Ventas.Web.Controllers
 {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Ventas.Data.Entities;
 
-namespace Ventas.Web.Models;
+namespace Ventas.Data.Context;
 
 public partial class AzurePracticeContext : DbContext
 {

@@ -1,4 +1,4 @@
-﻿namespace Ventas.Web.Models;
+﻿namespace Ventas.Data.Entities;
 
 public partial class Proveedore
 {
