@@ -2,25 +2,26 @@
 using Microsoft.EntityFrameworkCore;
 using Ventas.Data.Context;
 using Ventas.Data.Entities;
-using Ventas.Data.Interfaces.Repositories;
+using Ventas.Data.Repositories;
+using Ventas.Data.Services;
 
 namespace Ventas.Web.Controllers
 {
     public class ClientesController : Controller
     {
         private readonly AzurePracticeContext _context;
-        private readonly IClienteRepository _repo;
+        private readonly ClienteService _service;
 
-        public ClientesController(AzurePracticeContext context, IClienteRepository repo)
+        public ClientesController(AzurePracticeContext context, ClienteService service)
         {
             _context = context;
-            _repo = repo;
+            _service = service;
         }
 
 
         public async Task<IActionResult> Index()
         {
-            return View(await _repo.GetAll());
+            return View(await _service.GetAllClientes());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -51,7 +52,7 @@ namespace Ventas.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _repo.Add(cliente);
+                await _service.AddCliente(cliente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

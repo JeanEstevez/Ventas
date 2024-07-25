@@ -1,11 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Ventas.Data.Context;
+using Ventas.Data.Interfaces.Repositories;
+using Ventas.Data.Repositories;
+using Ventas.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<ClienteService>();
 
 builder.Services.AddDbContext<AzurePracticeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConn")));

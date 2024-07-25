@@ -34,11 +34,10 @@ namespace Ventas.Data.Repositories
                 await _context.SaveChangesAsync();
             }
 
-            public virtual async Task Update(T entity, int id)
+            public virtual async Task Update(T entity)
             {
-                var entry = await _context.Set<T>().FindAsync(id);
-                _context.Entry(entry).CurrentValues.SetValues(entity);
-                await _context.SaveChangesAsync();
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
             }
 
